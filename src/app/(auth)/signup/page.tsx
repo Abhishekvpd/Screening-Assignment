@@ -1,17 +1,21 @@
 "use client";
 
+import axios from "axios";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, FormEvent, useState } from "react";
+import toast from "react-hot-toast";
 import InputField from "~/components/InputField";
 
 export default function SignupPage() {
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
+  const [formSubmission, setFormSubmission] = useState(false);
   const [formValues, setFormValues] = useState<{
-    name: string;
+    username: string;
     email: string;
     password: string;
   }>({
-    name: "",
+    username: "",
     email: "",
     password: "",
   });
@@ -23,8 +27,8 @@ export default function SignupPage() {
       placeholder: "Enter name",
       type: "text",
       errorMessage: "This is a required field",
-      name: "name",
-      value: formValues.name,
+      name: "username",
+      value: formValues.username,
     },
     {
       id: 2,
@@ -53,10 +57,20 @@ export default function SignupPage() {
     setFormValues({ ...formValues, [e.target.name]: e.target.value });
   }
 
-  function formSubmitHandler(e: FormEvent<HTMLFormElement>) {
+  const formSubmitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log(formValues);
-  }
+    try {
+      setLoading(true);
+      const response = await axios.post("/api/users/signup", formValues);
+      console.log(response.data, "signup");
+      setFormSubmission(true);
+    } catch (error: any) {
+      toast.error(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="flex flex-col items-center gap-8">
@@ -69,16 +83,13 @@ export default function SignupPage() {
             onChangeHandler={onChangeHandler}
           />
         ))}
-        <button type="submit" className="button-primary">
+        <button type="submit" className="button-primary" disabled={loading}>
           CREATE ACCOUNT
         </button>
       </form>
       <div className="mt-4">
         <span>Don’t have an Account?</span>
-        <button
-          className="button-secondary"
-          onClick={() => router.push("/")}
-        >
+        <button className="button-secondary" onClick={() => router.push("/")}>
           LOGIN
         </button>
       </div>

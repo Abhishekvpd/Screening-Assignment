@@ -4,7 +4,7 @@ import type { NextRequest } from "next/server";
 // This function can be marked `async` if using `await` inside
 export function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname;
-  const authToken = request.cookies.get("authToken")?.value || true;
+  const authToken = request.cookies.get("authToken")?.value || "";
 
   const isPublicPath = path === "/" || path === "/login" || path === "/signup";
   const isProtectedPath = path === "/interests";

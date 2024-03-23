@@ -1,11 +1,14 @@
 "use client";
 
+import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useState, ChangeEvent, FormEvent } from "react";
+import toast from "react-hot-toast";
 import InputField from "~/components/InputField";
 
 export default function LoginPage() {
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
   const [formValues, setFormValues] = useState<{
     email: string;
     password: string;
@@ -16,7 +19,7 @@ export default function LoginPage() {
 
   const loginInputs = [
     {
-      id: 2,
+      id: 1,
       label: "Email",
       placeholder: "Enter email",
       type: "email",
@@ -25,7 +28,7 @@ export default function LoginPage() {
       value: formValues.email,
     },
     {
-      id: 3,
+      id: 2,
       label: "Password",
       placeholder: "Enter password",
       type: "password",
@@ -42,12 +45,22 @@ export default function LoginPage() {
     setFormValues({ ...formValues, [e.target.name]: e.target.value });
   }
 
-  function formSubmitHandler(e: FormEvent<HTMLFormElement>) {
+  async function formSubmitHandler(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     console.log(formValues);
-    router.push("/interests");
+    try {
+      setLoading(true);
+      const response = await axios.post("/api/users/login", formValues);
+      router.push("/interests");
+      console.log(response.data);
+      toast.success("Login Success");
+    } catch (error: any) {
+      toast.error(error.message);
+    } finally {
+      setLoading(false);
+    }
   }
-  
+
   return (
     <div className="flex flex-col items-center gap-8">
       <h2 className="header-2">Login</h2>
@@ -63,7 +76,7 @@ export default function LoginPage() {
             onChangeHandler={onChangeHandler}
           />
         ))}
-        <button type="submit" className="button-primary">
+        <button type="submit" className="button-primary" disabled={loading}>
           LOGIN
         </button>
       </form>

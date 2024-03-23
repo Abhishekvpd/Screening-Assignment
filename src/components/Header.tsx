@@ -24,7 +24,7 @@ function Header() {
           <span className="text-[32px] font-bold">ECOMMERCE</span>
           <nav className="flex gap-8">
             {navItems.map((item) => (
-              <a href="javascript:void(0);" className="link">{item}</a>
+              <a href="#" className="link">{item}</a>
             ))}
           </nav>
           <div className="flex gap-8">
