@@ -1,3 +1,37 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .header-2 {
+    @apply text-[32px] font-semibold;
+  }
+
+  .header-3 {
+    @apply text-2xl font-medium;
+  }
+
+  .button-primary {
+    @apply rounded-md bg-black py-4 font-medium text-white;
+  }
+
+  .button-secondary {
+    @apply px-3 font-medium;
+  }
+
+  .li-primary {
+    @apply text-xs font-normal;
+  }
+
+  .icon {
+    @apply h-8 w-8 p-[6px] cursor-pointer;
+  }
+
+  .border-primary {
+    @apply rounded-[20px] border border-solid border-[#C1C1C1];
+  }
+
+  .link {
+    @apply font-semibold text-base;
+  }
+}
