@@ -12,7 +12,7 @@
   }
 
   .button-primary {
-    @apply rounded-md bg-black py-4 font-medium text-white disabled:bg-slate-400 text-slate-200;
+    @apply rounded-md bg-black py-4 font-medium text-slate-200 text-white disabled:bg-slate-400;
   }
 
   .button-secondary {
@@ -24,7 +24,7 @@
   }
 
   .icon {
-    @apply h-8 w-8 p-[6px] cursor-pointer;
+    @apply h-8 w-8 cursor-pointer p-[6px];
   }
 
   .border-primary {
@@ -32,6 +32,11 @@
   }
 
   .link {
-    @apply font-semibold text-base;
+    @apply text-base font-semibold;
   }
+}
+
+.spin-button-none::-webkit-outer-spin-button,
+.spin-button-none::-webkit-inner-spin-button {
+  appearance: none;
 }

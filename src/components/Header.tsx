@@ -1,5 +1,5 @@
 import { BiCart } from "react-icons/bi";
-import { FiSearch } from "react-icons/fi";
+import { FiLogOut, FiSearch } from "react-icons/fi";
 import OfferBar from "./OfferBar";
 
 function Header() {
@@ -10,6 +10,7 @@ function Header() {
     "New Stock",
     "Trending",
   ];
+
   return (
     <>
       <header>
@@ -24,7 +25,9 @@ function Header() {
           <span className="text-[32px] font-bold">ECOMMERCE</span>
           <nav className="flex gap-8">
             {navItems.map((item) => (
-              <a href="#" className="link">{item}</a>
+              <a href="#" className="link">
+                {item}
+              </a>
             ))}
           </nav>
           <div className="flex gap-8">

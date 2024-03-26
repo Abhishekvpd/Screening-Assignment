@@ -11,3 +11,9 @@ export type InputProps = {
   value: string;
   onChangeHandler: (arg: ChangeEvent<HTMLInputElement>) => void;
 };
+
+export type CheckboxProps = {
+  id: string;
+  interest: string;
+  checked: boolean;
+};

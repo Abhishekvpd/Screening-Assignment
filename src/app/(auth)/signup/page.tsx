@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { ChangeEvent, FormEvent, useState } from "react";
 import toast from "react-hot-toast";
 import InputField from "~/components/InputField";
+import VerifyScreen from "./VerifyScreen";
 
 export default function SignupPage() {
   const router = useRouter();
@@ -72,7 +73,9 @@ export default function SignupPage() {
     }
   };
 
-  return (
+  return formSubmission ? (
+    <VerifyScreen email={formValues.email} />
+  ) : (
     <div className="flex flex-col items-center gap-8">
       <h2 className="header-2">Create your account</h2>
       <form className="flex flex-col gap-8" onSubmit={formSubmitHandler}>
