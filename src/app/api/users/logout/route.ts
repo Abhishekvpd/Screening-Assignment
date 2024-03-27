@@ -1,3 +1,4 @@
+import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
 export async function GET() {
@@ -6,7 +7,7 @@ export async function GET() {
       message: "Logout successful",
       success: true,
     });
-    response.cookies.delete("authToken");
+    cookies().delete("authToken");
     return response;
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
