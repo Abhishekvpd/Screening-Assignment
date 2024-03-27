@@ -40,7 +40,7 @@ function Header() {
           </ul>
         </div>
         <div className="flex items-center justify-between px-10">
-          <span className="text-[32px] font-bold">ECOMMERCE</span>
+          <span className="text-[32px] font-bold mb-3">ECOMMERCE</span>
           <nav className="flex gap-8">
             {navItems.map((item, index) => (
               <a href="#" className="link" key={index}>
