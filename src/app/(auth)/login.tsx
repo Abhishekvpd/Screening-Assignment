@@ -34,8 +34,6 @@ export default function LoginPage() {
       type: "password",
       errorMessage:
         "The password should be at least 8 characters long, should contain at least one uppercase letter, one lowercase letter, one number and one special character",
-      // pattern: "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$",
-      pattern: "john",
       name: "password",
       value: formValues.password,
     },

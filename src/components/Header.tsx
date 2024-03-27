@@ -1,10 +1,16 @@
+"use client";
+
 import { BiCart } from "react-icons/bi";
 import { FiLogOut, FiSearch } from "react-icons/fi";
 import OfferBar from "./OfferBar";
-import { cookies } from "next/headers";
+import { usePathname, useRouter } from "next/navigation";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 function Header() {
-  const cookie = cookies();
+  const router = useRouter();
+  const pathname = usePathname();
+  console.log(pathname)
 
   const navItems: string[] = [
     "Categories",
@@ -13,6 +19,16 @@ function Header() {
     "New Stock",
     "Trending",
   ];
+
+  const signOutHandler = async () => {
+    try {
+      const response = await axios.get("/api/users/logout");
+      if (response.data.success) toast.success("You have been logged out");
+      router.push("/");
+    } catch (error: any) {
+      toast.error(error.response.data.error || error.message);
+    }
+  };
 
   return (
     <>
@@ -27,8 +43,8 @@ function Header() {
         <div className="flex items-center justify-between px-10">
           <span className="text-[32px] font-bold">ECOMMERCE</span>
           <nav className="flex gap-8">
-            {navItems.map((item) => (
-              <a href="#" className="link">
+            {navItems.map((item, index) => (
+              <a href="#" className="link" key={index}>
                 {item}
               </a>
             ))}
@@ -36,6 +52,7 @@ function Header() {
           <div className="flex gap-8">
             <FiSearch className="icon" />
             <BiCart className="icon" />
+            { <FiLogOut className="icon" onClick={signOutHandler} />}
           </div>
         </div>
         <OfferBar />

@@ -4,6 +4,7 @@ import { InputProps } from "~/utils/models";
 
 function InputField({
   label,
+  id,
   errorMessage,
   type,
   placeholder,
@@ -28,6 +29,7 @@ function InputField({
         type={type === "password" && showPassword ? "text" : type}
         name={name}
         value={value}
+        minLength={name === "password" && id === 3 ? 8 : undefined}
         // pattern={pattern ? pattern : undefined}
         onChange={(e) => onChangeHandler(e)}
         required
