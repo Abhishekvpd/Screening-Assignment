@@ -22,7 +22,7 @@ function Header() {
   const signOutHandler = async () => {
     try {
       const response = await axios.get("/api/users/logout");
-      router.push("/");
+      router.push("/login");
       if (response.data.success) toast.success("You have been logged out");
     } catch (error: any) {
       toast.error(error.response.data.error || error.message);
