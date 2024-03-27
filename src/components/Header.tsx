@@ -22,8 +22,8 @@ function Header() {
   const signOutHandler = async () => {
     try {
       const response = await axios.get("/api/users/logout");
-      if (response.data.success) toast.success("You have been logged out");
       router.push("/");
+      if (response.data.success) toast.success("You have been logged out");
     } catch (error: any) {
       toast.error(error.response.data.error || error.message);
     }
@@ -40,7 +40,7 @@ function Header() {
           </ul>
         </div>
         <div className="flex items-center justify-between px-10">
-          <span className="text-[32px] font-bold mb-3">ECOMMERCE</span>
+          <span className="mb-3 text-[32px] font-bold">ECOMMERCE</span>
           <nav className="flex gap-8">
             {navItems.map((item, index) => (
               <a href="#" className="link" key={index}>
