@@ -21,6 +21,7 @@ export default function SignupPage() {
     password: "",
   });
 
+  // signup fields
   const signUpInputs = [
     {
       id: 1,

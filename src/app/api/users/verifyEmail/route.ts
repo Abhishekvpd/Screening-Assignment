@@ -29,11 +29,11 @@ export async function POST(request: NextResponse) {
         return NextResponse.json({ error: "Invalid OTP" }, { status: 400 });
       await User.updateOne({ email }, { isVerified: true });
       await UserOtp.deleteMany({ email });
-      return NextResponse.json(
-        { message: "Email has been verified", success: true},
-        { status: 200 },
-      );
     }
+    return NextResponse.json(
+      { message: "Email has been verified", success: true },
+      { status: 200 },
+    );
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
