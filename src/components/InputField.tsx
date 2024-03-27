@@ -28,7 +28,7 @@ function InputField({
         type={type === "password" && showPassword ? "text" : type}
         name={name}
         value={value}
-        pattern={pattern ? pattern : undefined}
+        // pattern={pattern ? pattern : undefined}
         onChange={(e) => onChangeHandler(e)}
         required
       />
@@ -44,9 +44,6 @@ function InputField({
       )}
 
       {/* validation errors */}
-      {/* <span className="hidden text-wrap text-sm font-normal invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500">
-        {errorMessage}
-      </span> */}
       <span className="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
         Please enter a valid email address
       </span>

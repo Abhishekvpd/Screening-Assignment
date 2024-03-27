@@ -1,7 +1,7 @@
 import "~/styles/globals.css";
-
 import { Inter } from "next/font/google";
 import Header from "~/components/Header";
+import { Toaster } from "react-hot-toast";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -27,6 +27,7 @@ export default function RootLayout({
           <section className="border-primary px-[60px] py-10">
             {children}
           </section>
+          <Toaster />
         </main>
       </body>
     </html>
