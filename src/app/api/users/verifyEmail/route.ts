@@ -6,7 +6,7 @@ import bcryptjs from "bcryptjs";
 
 connect();
 
-export async function POST(request: NextRequest) {
+export async function POST(request: Request) {
   try {
     const reqBody = await request.json();
     const { email, otp } = reqBody;
