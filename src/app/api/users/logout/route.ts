@@ -6,10 +6,7 @@ export async function GET() {
       message: "Logout successful",
       success: true,
     });
-    response.cookies.set("authToken", "", {
-      httpOnly: true,
-      expires: new Date(0),
-    });
+    response.cookies.delete("authToken");
     return response;
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
