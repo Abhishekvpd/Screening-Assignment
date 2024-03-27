@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { ChangeEvent, KeyboardEvent, useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 
-let currentIndex: number = 0;
+let currentIndex = 0;
 const VerifyScreen = ({ email }: { email: string }) => {
   const router = useRouter();
   const [otp, setOtp] = useState<string[]>(new Array(8).fill(""));

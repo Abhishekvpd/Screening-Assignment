@@ -49,7 +49,7 @@ export default function LoginPage() {
     e.preventDefault();
     try {
       setLoading(true);
-      const response = await axios.post("/api/users/login", formValues);
+      await axios.post("/api/users/login", formValues);
       router.push("/interests");
       toast.success("Login Success");
     } catch (error: any) {

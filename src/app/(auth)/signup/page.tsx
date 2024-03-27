@@ -49,8 +49,8 @@ export default function SignupPage() {
       type: "password",
       errorMessage:
         "The password should be at least 8 characters long, should contain at least one uppercase letter, one lowercase letter, one number and one special character",
-      // pattern: "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$",
-      pattern: "john",
+      pattern:
+        "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$",
       name: "password",
       value: formValues.password,
     },
@@ -64,7 +64,7 @@ export default function SignupPage() {
     e.preventDefault();
     try {
       setLoading(true);
-      const response = await axios.post("/api/users/signup", formValues);
+      await axios.post("/api/users/signup", formValues);
       setFormSubmission(true);
     } catch (error: any) {
       toast.error(error.response.data.error || error.message);

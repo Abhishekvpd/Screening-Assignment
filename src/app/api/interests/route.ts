@@ -16,7 +16,7 @@ export async function GET(request: NextRequest) {
     const interests = await Interest.find().skip(skip).limit(pageSize);
     const total = await Interest.countDocuments();
 
-    const userId = getJwtData(request);
+    const userId: string = getJwtData(request);
     const user = await User.findOne({ _id: userId });
     if (!user)
       return NextResponse.json({ error: "User not found" }, { status: 401 });

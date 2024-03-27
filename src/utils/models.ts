@@ -16,5 +16,5 @@ export type CheckboxProps = {
   id: string;
   interest: string;
   checked: boolean;
-  checkEventHandler: any;
+  checkEventHandler: (e: ChangeEvent<HTMLInputElement>, id: string) => void;
 };
