@@ -13,7 +13,7 @@ export async function POST(request: NextRequest) {
 
     // check if user exists
     const user = await User.findOne({ email });
-    if (!user)
+    if (!user || !user.isVerified)
       return NextResponse.json(
         { error: "Invalid email or password" },
         { status: 400 },

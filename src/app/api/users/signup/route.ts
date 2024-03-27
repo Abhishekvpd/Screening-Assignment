@@ -15,10 +15,12 @@ export async function POST(request: NextRequest) {
     const user = await User.findOne({ email });
 
     if (user)
-      return NextResponse.json(
-        { error: "User already exists" },
-        { status: 400 },
-      );
+      if (user.isVerified)
+        return NextResponse.json(
+          { error: "User with given email already exists" },
+          { status: 400 },
+        );
+      else if (!user.isVerified) await User.deleteMany({ email });
 
     // hash password
     const salt = await bcryptjs.genSalt(10);

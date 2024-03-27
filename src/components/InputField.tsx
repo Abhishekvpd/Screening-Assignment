@@ -10,7 +10,7 @@ function InputField({
   pattern,
   name,
   value,
-  onChangeHandler
+  onChangeHandler,
 }: InputProps) {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -25,11 +25,11 @@ function InputField({
       <input
         placeholder={placeholder}
         className="border-primary rounded-md px-4 py-3 outline-none"
-        // pattern={pattern ? pattern : ""}
         type={type === "password" && showPassword ? "text" : type}
         name={name}
         value={value}
-        onChange={e => onChangeHandler(e)}
+        pattern={pattern ? pattern : undefined}
+        onChange={(e) => onChangeHandler(e)}
         required
       />
 
@@ -44,8 +44,11 @@ function InputField({
       )}
 
       {/* validation errors */}
-      <span className="hidden text-wrap text-sm font-normal text-red-600 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
+      {/* <span className="hidden text-wrap text-sm font-normal invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500">
         {errorMessage}
+      </span> */}
+      <span className="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
+        Please enter a valid email address
       </span>
     </div>
   );

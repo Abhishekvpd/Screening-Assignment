@@ -2,12 +2,20 @@
 
 import { useState } from "react";
 
-const Paginator = ({ totalPages = 10 }) => {
-  const [currentPage, setCurrentPage] = useState(5);
+type PaginationProps = {
+  currentPage: number;
+  totalPages: number;
+  paginationHandler: (page: number) => void;
+};
 
+const Paginator = ({
+  currentPage,
+  totalPages,
+  paginationHandler,
+}: PaginationProps) => {
   const renderPages = () => {
     const pages = [];
-    const displayRange = 3; // Number of pages to display before and after current page
+    const displayRange = currentPage < 4 ? 7 - currentPage : 3; // Number of pages to display before and after current page
     const ellipsis = <span key="ellipsis">...</span>;
 
     // Render previous pages
@@ -17,7 +25,7 @@ const Paginator = ({ totalPages = 10 }) => {
       i++
     ) {
       pages.push(
-        <span key={i} onClick={() => handlePageChange(i)}>
+        <span key={i} onClick={() => handlePageChange(i)} className="h-6 w-6">
           {i}
         </span>,
       );
@@ -28,7 +36,7 @@ const Paginator = ({ totalPages = 10 }) => {
       <span
         key={currentPage}
         onClick={() => handlePageChange(currentPage)}
-        className="current-page"
+        className="h-6 w-6 text-black"
       >
         {currentPage}
       </span>,
@@ -41,7 +49,7 @@ const Paginator = ({ totalPages = 10 }) => {
       i++
     ) {
       pages.push(
-        <span key={i} onClick={() => handlePageChange(i)}>
+        <span key={i} onClick={() => handlePageChange(i)} className="h-6 w-6">
           {i}
         </span>,
       );
@@ -60,18 +68,55 @@ const Paginator = ({ totalPages = 10 }) => {
     return pages;
   };
 
-  const handlePageChange = (page: number) => {};
-  const goToPreviousPage = () => {};
-  const goToNextPage = () => {};
-  const goToFirstPage = () => {};
-  const goToLastPage = () => {};
+  const handlePageChange = (page: number) => {
+    paginationHandler(page);
+  };
+
+  const goToPreviousPage = () => {
+    paginationHandler(currentPage - 1);
+  };
+  const goToNextPage = () => {
+    paginationHandler(currentPage + 1);
+  };
+
+  const goToFirstPage = () => {
+    paginationHandler(1);
+  };
+  const goToLastPage = () => {
+    paginationHandler(totalPages);
+  };
+
   return (
-    <div>
-      <span onClick={goToFirstPage}>&lt;&lt;</span>
-      <span onClick={goToPreviousPage}>&lt;</span>
+    <div className="flex cursor-pointer justify-center gap-2 text-xl font-medium text-[#ACACAC]">
+      <span
+        onClick={goToFirstPage}
+        className={currentPage === 1 ? "pointer-events-none" : ""}
+        key={"first"}
+      >
+        &lt;&lt;
+      </span>
+      <span
+        onClick={goToPreviousPage}
+        className={currentPage === 1 ? "pointer-events-none" : ""}
+        key={"previous"}
+      >
+        &lt;
+      </span>
       {renderPages()}
-      <span onClick={goToNextPage}>&gt;</span>
-      <span onClick={goToLastPage}>&gt;&gt;</span>
+      <span
+        onClick={goToNextPage}
+        className={currentPage === totalPages ? "pointer-events-none" : ""}
+        key={"next"}
+      >
+        &gt;
+      </span>
+      <span
+        onClick={goToLastPage}
+        className={currentPage === totalPages ? "pointer-events-none" : ""}
+        key={"last"}
+      >
+        &gt;&gt;
+      </span>
     </div>
   );
 };

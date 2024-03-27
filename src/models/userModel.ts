@@ -4,6 +4,8 @@ export type UserType = {
   username: string;
   email: string;
   password: string;
+  isVerified: boolean;
+  interests: string[];
 };
 
 const userSchema = new mongoose.Schema({
@@ -25,7 +27,11 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-  otpExpiry: Date
+  interests: {
+    type: [String],
+    default: [],
+  },
+  otpExpiry: Date,
 });
 
 const User =

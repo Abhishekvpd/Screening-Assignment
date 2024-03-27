@@ -39,6 +39,7 @@ export default function SignupPage() {
       errorMessage: "Enter a valid email address",
       name: "email",
       value: formValues.email,
+      pattern: "[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,}$",
     },
     {
       id: 3,
@@ -60,14 +61,12 @@ export default function SignupPage() {
 
   const formSubmitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(formValues);
     try {
       setLoading(true);
       const response = await axios.post("/api/users/signup", formValues);
-      console.log(response.data, "signup");
       setFormSubmission(true);
     } catch (error: any) {
-      toast.error(error.message);
+      toast.error(error.response.data.error || error.message);
     } finally {
       setLoading(false);
     }

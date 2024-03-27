@@ -1,15 +1,58 @@
+"use client";
+
+import axios from "axios";
+import { ChangeEvent, useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import CheckboxField from "~/components/CheckboxField";
 import Paginator from "~/components/Paginator";
 
 export default function InterestsPage() {
-  const data = [
-    { id: "1", interest: "asasda", checked: false },
-    { id: "2", interest: "asasda", checked: false },
-    { id: "3", interest: "asasda", checked: false },
-    { id: "4", interest: "asasda", checked: true },
-    { id: "5", interest: "asasda", checked: false },
-    { id: "6", interest: "asasda", checked: false },
-  ];
+  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState<
+    { id: string; interest: string; checked: boolean }[]
+  >([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  let totalPages = 17;
+
+  const fetchInterests = async () => {
+    try {
+      setLoading(true);
+      const interests = await axios.get("/api/interests", {
+        params: { page: currentPage },
+      });
+      setData(interests.data.interests);
+    } catch (error: any) {
+      toast.error(error.response.data.error || error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const checkEventHandler = async (
+    e: ChangeEvent<HTMLInputElement>,
+    id: string,
+  ) => {
+    const { checked } = e.target;
+    const dataa = data.map((item) => {
+      if (item.id === id) item.checked = checked;
+      return item;
+    });
+    try {
+      await axios.post("/api/interests", { id, checked });
+    } catch (error: any) {
+      toast.error(error.response.data.error || error.message);
+    }
+    setData(dataa);
+  };
+
+  const paginationHandler = (currentPage: number) => {
+    setCurrentPage(currentPage);
+  };
+
+  useEffect(() => {
+    fetchInterests();
+  }, [currentPage]);
+
   return (
     <div className="flex flex-col gap-9">
       <header className="flex flex-col items-center gap-6">
@@ -18,14 +61,28 @@ export default function InterestsPage() {
       </header>
       <section className="mt-3">
         <span className="text-xl font-medium">My saved interests!</span>
-        <div className="mt-7 flex flex-col gap-6">
-          {data.map((item) => (
-            <CheckboxField {...item} />
-          ))}
-        </div>
+        {loading ? (
+          <div className="flex justify-center">
+            <span className="font-medium text-lg text-gray-600 mt-6">Loading...</span>
+          </div>
+        ) : (
+          <div className="mt-7 flex flex-col gap-6">
+            {data.map((item) => (
+              <CheckboxField
+                {...item}
+                key={item.id}
+                checkEventHandler={checkEventHandler}
+              />
+            ))}
+          </div>
+        )}
       </section>
       <div className="mt-8">
-        <Paginator />
+        <Paginator
+          currentPage={currentPage}
+          paginationHandler={paginationHandler}
+          totalPages={totalPages}
+        />
       </div>
     </div>
   );

@@ -1,8 +1,11 @@
 import { BiCart } from "react-icons/bi";
 import { FiLogOut, FiSearch } from "react-icons/fi";
 import OfferBar from "./OfferBar";
+import { cookies } from "next/headers";
 
 function Header() {
+  const cookie = cookies();
+
   const navItems: string[] = [
     "Categories",
     "Sale",

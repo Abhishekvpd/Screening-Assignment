@@ -16,4 +16,5 @@ export type CheckboxProps = {
   id: string;
   interest: string;
   checked: boolean;
+  checkEventHandler: any;
 };

@@ -47,15 +47,13 @@ export default function LoginPage() {
 
   async function formSubmitHandler(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    console.log(formValues);
     try {
       setLoading(true);
       const response = await axios.post("/api/users/login", formValues);
       router.push("/interests");
-      console.log(response.data);
       toast.success("Login Success");
     } catch (error: any) {
-      toast.error(error.message);
+      toast.error(error.response.data.error || error.message);
     } finally {
       setLoading(false);
     }

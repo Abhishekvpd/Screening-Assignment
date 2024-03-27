@@ -17,11 +17,12 @@ export const sendEmail = async (email: string) => {
     await userOtpVerification.save();
 
     const transporter = nodemailer.createTransport({
-      host: "sandbox.smtp.mailtrap.io",
-      port: 2525,
+      service: "gmail",
+      host: "smtp.gmail.com",
+      port: 465,
       auth: {
-        user: process.env.AUTH_USER,
-        pass: process.env.AUTH_PASS,
+        user: "testtemp191@gmail.com",
+        pass: "Testtemp@123",
       },
     });
 
