@@ -10,7 +10,6 @@ import toast from "react-hot-toast";
 function Header() {
   const router = useRouter();
   const pathname = usePathname();
-  console.log(pathname)
 
   const navItems: string[] = [
     "Categories",
@@ -52,7 +51,9 @@ function Header() {
           <div className="flex gap-8">
             <FiSearch className="icon" />
             <BiCart className="icon" />
-            { <FiLogOut className="icon" onClick={signOutHandler} />}
+            {pathname === "/interests" && (
+              <FiLogOut className="icon" onClick={signOutHandler} />
+            )}
           </div>
         </div>
         <OfferBar />
